@@ -1,0 +1,23 @@
+@startuml
+
+title "Sendout"
+
+actor "User" as u
+
+participant "Wallet" as wallet
+participant "Ledger" as ledger
+participant "FireBlocks" as fb
+participant "ETH blockchain" as eb
+
+u -> wallet ++: sendoout request
+wallet -> ledger : debit user balance
+ledger -> ledger : check the limits
+alt enough banalce
+wallet -> fb : request sendout
+fb -> fb : check the limits
+fb -> eb: Broadcast transation
+else not enough banalce
+ledger -> wallet : error
+end group
+
+@enduml

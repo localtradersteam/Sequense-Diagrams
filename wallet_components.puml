@@ -1,0 +1,42 @@
+@@startuml
+
+
+:User: as u
+component "Ledger" as ledger
+component "Wallet" as wallet
+
+rectangle "3rd parties" {
+    component "FireBlocks" as f
+    component "OKex" as o
+}
+
+note as wallet_cmt
+- Assets management
+- Deposit
+- Sendout
+- Internal Transfer
+- Transaction History
+- Fueling/Sweeping
+- maitenance tooling
+end note
+
+note as ledger_cmt
+- user money flow
+- money flow audit
+- balance change history
+end note
+
+
+
+wallet_cmt -- wallet
+ledger_cmt -- ledger
+
+
+u -> wallet: request
+wallet -> ledger
+wallet -> f
+wallet -> o
+
+
+
+@@enduml

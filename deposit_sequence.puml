@@ -1,0 +1,20 @@
+@startuml
+
+title "Deposit"
+
+actor "User" as u
+
+participant "Wallet" as wallet
+participant "Ledger" as ledger
+participant "FireBlocks" as fb
+participant "ETH blockchain" as eb
+
+
+eb -> fb: New blocks mined
+fb -> fb: get all TXs from the block
+fb -> wallet: Webhook call
+wallet -> eb: Get block
+wallet -> wallet: Analyse block and get\nthe balance of deposit address
+wallet -> ledger: add balance to user
+wallet -> u: Notify user\nabout deposit
+@enduml
