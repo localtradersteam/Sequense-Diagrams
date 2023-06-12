@@ -2,15 +2,11 @@
 
 1. Deposit Sequence Diagram
 
-```plantuml
-!include https://github.com/localtradersteam/Sequense-Diagrams/blob/main/deposit_sequence.puml
-```
+<!--![Diagram Image Link](./deposit_sequence.puml)-->
 
-2. Deposit Sequence Diagram
+1. Deposit Sequence Diagram
 
-```plantuml
-!include https://github.com/localtradersteam/Sequense-Diagrams/blob/main/sendout_sequence.puml
-```
+<!--![Diagram Image Link](./sendout_sequence.puml)-->
 
 
 =Components Diagrams=
