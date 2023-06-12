@@ -10,15 +10,15 @@ participant "FireBlocks" as fb
 participant "ETH blockchain" as eb
 
 u -> wallet ++: request sendout
-wallet -> ledger : ask for user balance
+wallet -> ledger++: ask for user balance
 ledger -> ledger : check the limits,\nKYC level
-ledger -> wallet : return user balance
+ledger -> wallet--: return user balance
 
 alt enough balance
-wallet -> fb : request to sendout fund to eth address
+wallet -> fb++: request sendout to eth address
 fb -> fb : check the limits
 fb -> eb: broadcast transation
-fb -> wallet: return tx hash
+fb -> wallet--: return tx hash
 loop for each new block
 wallet -> eb: fetch block
 wallet -> wallet: Analyse block,\nget tx confirmations
@@ -26,7 +26,7 @@ end
 wallet -> ledger: update balance for user
 wallet -> u: Notify user\nabout finished sendout
 else not enough banalce
-wallet -> u : error not enougth balance
+wallet -> u--: error not enougth balance
 end group
 
 @enduml

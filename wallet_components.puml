@@ -2,15 +2,22 @@
 
 
 :User: as u
-component "Ledger" as ledger
-component "Wallet" as wallet
 
-rectangle "3rd parties" {
-    component "FireBlocks" as f
-    component "OKex" as o
+rectangle "3rd-Parties" #line.dashed {
+    component "FireBlocks" as f #palegreen
+    component "OKex" as o #palegreen
 }
 
-note as wallet_cmt
+skinparam rectangle {
+    from up to down
+}
+
+component "Marketplace" as marketplace #LightBlue
+component "Swaps" as swaps #LightBlue
+component "Wallet" as wallet #LightBlue
+component "Ledger" as ledger
+
+note top of wallet
 - Assets management
 - Deposit
 - Sendout
@@ -20,23 +27,30 @@ note as wallet_cmt
 - maitenance tooling
 end note
 
-note as ledger_cmt
+note top of ledger
 - user money flow
 - money flow audit
 - balance change history
 end note
 
+note right of o
+- swaps provider
+end note
 
+note right of f
+- blockchain and wallet provider
+end note
 
-wallet_cmt -- wallet
-ledger_cmt -- ledger
+u -up-> wallet: request
+wallet -left-> ledger
 
+' small hack to hame boxies vertical order
+f .. o #white
 
-u -> wallet: request
-wallet -> ledger
-wallet -> f
-wallet -> o
+wallet => f: API/Webhooks
+wallet => o: API/Webhooks
 
-
+marketplace -up-> ledger: manage user balances
+swaps -up-> ledger: manage user balances
 
 @@enduml
