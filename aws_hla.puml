@@ -1,0 +1,35 @@
+@@startuml
+
+
+actor "Admin" as admin
+
+rectangle "AWS" #line.dashed {
+
+    rectangle "Development VPC" as dev_vpc #line.dashed {
+
+    }
+
+    rectangle "Staging VPC" as stg_vpc #line.dashed {
+
+    }
+
+    rectangle "Management VPC" as mgmt_vpc #line.dashed {
+    rectangle "VPN" as vpn
+    }
+
+    rectangle "Production VPC" as prod_vpc #line.dashed {
+
+    }
+}
+
+admin -> vpn : connect to DMZ
+
+mgmt_vpc -up-> prod_vpc : Peering
+
+mgmt_vpc -up-> stg_vpc : Peering
+
+mgmt_vpc -down-> dev_vpc : Peering
+
+
+
+@@enduml
