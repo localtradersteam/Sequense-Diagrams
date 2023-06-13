@@ -19,10 +19,10 @@ wallet -> fb++: request sendout to eth address
 fb -> fb : check the limits
 fb -> eb: broadcast transation
 fb -> wallet--: return tx hash
-loop for each new block
+
+fb -> wallet: receive webhook
 wallet -> eb: fetch block
 wallet -> wallet: Analyse block,\nget tx confirmations
-end
 wallet -> ledger: update balance for user
 wallet -> u: Notify user\nabout finished sendout
 else not enough banalce

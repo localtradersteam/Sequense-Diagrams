@@ -12,10 +12,7 @@ participant "ETH blockchain" as eb
 note over u: User has deposit address
 
 u -> eb: User send funds to eth deposit address
-loop for each new block
-eb -> fb++: New blocks mined (Webhook)
-fb -> eb--: Analyse the block
-end
+eb -> fb: New block mined
 
 alt deposit address detected
 fb -> wallet++: Webhook call
