@@ -1,0 +1,74 @@
+@@startuml
+
+title AWS Networking
+
+'default
+top to bottom direction
+'left to right direction
+
+
+actor "Developer" as developer
+actor "User" as user
+
+
+rectangle "AWS dev" #line.dashed {
+
+    rectangle "Dev VPC (eu-central-1)" as dev_vpc #LightGray {
+        rectangle "Dev env" as dev_env
+    }
+}
+
+rectangle "AWS prod" #line.dashed {
+    rectangle "Prod VPC (eu-central-1)" as prod_vpc #LightGreen {
+        rectangle "Prod env" as prod_env
+    }
+}
+
+rectangle "AWS mgmt" #line.dashed {
+    rectangle "Mmgmt VPC (eu-central-1)" as mgmt_vpc #LightBlue {
+        (VPN) as vpn
+        rectangle "Mgmt Infra" as mgmt_env
+    }
+}
+
+rectangle "AWS stg" #line.dashed {
+    rectangle "Stg VPC (eu-central-1)" as stg_vpc #LightGray {
+        rectangle "Stg env" as stg_env
+    }
+}
+
+cloud "CDN" as cdn {
+
+}
+
+note top of mgmt_env
+Monitoring
+Logging
+Error Tracking
+CI/CD
+end note
+
+note top of prod_env
+production workloads,
+dbs, redis, etc.
+end note
+
+note top of stg_env
+staging workloads,
+dbs, redis, etc.
+end note
+
+note top of dev_env
+development envs
+end note
+
+developer --> vpn : mgmt traffic
+
+user --> cdn: user traffic
+cdn --> prod_env: filtered traffic
+
+mgmt_vpc <---> prod_vpc : Peering
+mgmt_vpc <---> stg_vpc : Peering
+mgmt_vpc <---> dev_vpc : Peering
+
+@@enduml
