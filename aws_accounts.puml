@@ -1,0 +1,47 @@
+@@startuml
+
+title AWS Accounts
+
+'default
+top to bottom direction
+'left to right direction
+
+
+rectangle "AWS org" as org
+
+rectangle "AWS dev" as dev
+
+rectangle "AWS prod" as prod
+
+rectangle "AWS mgmt" as mgmt
+
+rectangle "AWS stg" as stg
+
+note top of org
+Payments
+Support Plan
+Savings Plan
+end note
+
+note top of dev
+Development envs
+end note
+
+note top of stg
+Staging env
+end note
+
+note top of prod
+Production env
+end note
+
+note top of mgmt
+Management env
+end note
+
+org .. dev: org link
+org .. prod: org link
+org .. mgmt: org link
+org .. stg: org link
+
+@@enduml

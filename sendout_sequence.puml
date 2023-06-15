@@ -9,6 +9,11 @@ participant "Ledger" as ledger
 participant "FireBlocks" as fb
 participant "ETH blockchain" as eb
 
+
+== Internal Sendout ==
+
+
+== External Sendout ==
 u -> wallet ++: request sendout
 wallet -> ledger++: ask for user balance
 ledger -> ledger : check the limits,\nKYC level
