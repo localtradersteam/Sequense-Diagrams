@@ -9,8 +9,6 @@ top to bottom direction
 
 rectangle "AWS org" as org
 
-rectangle "AWS dev" as dev
-
 rectangle "AWS prod" as prod
 
 rectangle "AWS mgmt" as mgmt
@@ -23,12 +21,8 @@ Support Plan
 Savings Plan
 end note
 
-note top of dev
-Development envs
-end note
-
 note top of stg
-Staging env
+Staging and Dev envs
 end note
 
 note top of prod
@@ -39,7 +33,6 @@ note top of mgmt
 Management env
 end note
 
-org .. dev: org link
 org .. prod: org link
 org .. mgmt: org link
 org .. stg: org link

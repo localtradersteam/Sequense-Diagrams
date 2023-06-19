@@ -1,0 +1,38 @@
+@@startuml
+
+
+:User: as u
+
+rectangle "3rd-Parties" #line.dashed {
+    component "FireBlocks" as f #palegreen
+}
+
+cloud "CDN" as cdn
+
+u --down-> cdn: Host: https://www.localtraders.finance/\nPath: /wallet
+
+package "AWS VPC" {
+    database "Wallet RDS" as wallet_db #LightCyan
+    database "Wallet ElastiCache" as wallet_cache #LightCyan
+
+    package "AWS EKS" {
+        component "k8s istio gateway" as istio
+        component "API Gateway" as apigw
+        component "Wallet" as wallet #LightBlue
+        component "WalletWebApp" as walletwebapp #LightBlue
+        component "Ledger" as ledger #LightBlue
+    }
+}
+
+cdn -down-> istio
+istio -down-> apigw: "Host: apigateway.<ns>\nPath: /wallet"
+apigw -down->wallet: "Host wallet.<ns>\nPath: /api"
+
+walletwebapp -left-> istio: "Host: wallet-web-app.<ns>\nPath: /static/wallet"
+wallet -> ledger: "Host: ledger.<ns>\nPath: /int-api"
+wallet -left-> f
+
+' small hack to hame boxies vertical order
+wallet_db .. wallet_cache #white
+
+@@enduml

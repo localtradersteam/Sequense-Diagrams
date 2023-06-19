@@ -9,17 +9,20 @@ participant "Ledger" as ledger
 participant "FireBlocks" as fb
 participant "ETH blockchain" as eb
 
-
-== Internal Sendout ==
-
-
-== External Sendout ==
+== Preparing Sendout ==
 u -> wallet ++: request sendout
 wallet -> ledger++: ask for user balance
 ledger -> ledger : check the limits,\nKYC level
 ledger -> wallet--: return user balance
+alt not enough banalce
+wallet -> u--: error not enougth balance
+end group
 
-alt enough balance
+== Internal Sendout ==
+wallet -> ledger++: update users balances
+ledger -> wallet--: return status
+
+== External Sendout ==
 wallet -> fb++: request sendout to eth address
 fb -> fb : check the limits
 fb -> eb: broadcast transation
@@ -28,10 +31,10 @@ fb -> wallet--: return tx hash
 fb -> wallet: receive webhook
 wallet -> eb: fetch block
 wallet -> wallet: Analyse block,\nget tx confirmations
-wallet -> ledger: update balance for user
+wallet -> ledger++: update user balance
+ledger -> wallet--: return status
+
+== Post Sendout ==
 wallet -> u: Notify user\nabout finished sendout
-else not enough banalce
-wallet -> u--: error not enougth balance
-end group
 
 @enduml

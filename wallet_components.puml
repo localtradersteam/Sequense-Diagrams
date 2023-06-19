@@ -12,10 +12,15 @@ skinparam rectangle {
     from up to down
 }
 
+component "Account" as account #LightBlue
 component "Marketplace" as marketplace #LightBlue
 component "Swaps" as swaps #LightBlue
 component "Wallet" as wallet #LightBlue
-component "Ledger" as ledger
+component "Ledger" as ledger 
+database "Wallet DB" as wallet_db #LightCyan
+database "Wallet Redis" as wallet_cache #LightCyan
+database "Ledger DB" as ledger_db #LightCyan
+
 
 note top of wallet
 - Assets management
@@ -41,7 +46,7 @@ note right of f
 - blockchain and wallet provider
 end note
 
-u -up-> wallet: request
+u --down-> wallet: request
 wallet -left-> ledger
 
 ' small hack to hame boxies vertical order
@@ -52,5 +57,10 @@ wallet => o: API/Webhooks
 
 marketplace -up-> ledger: manage user balances
 swaps -up-> ledger: manage user balances
+
+wallet =down=> wallet_db
+wallet =down=> wallet_cache
+
+ledger =down=> ledger_db
 
 @@enduml

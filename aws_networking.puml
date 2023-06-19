@@ -10,14 +10,6 @@ top to bottom direction
 actor "Developer" as developer
 actor "User" as user
 
-
-rectangle "AWS dev" #line.dashed {
-
-    rectangle "Dev VPC (eu-central-1)" as dev_vpc #LightGray {
-        rectangle "Dev env" as dev_env
-    }
-}
-
 rectangle "AWS prod" #line.dashed {
     rectangle "Prod VPC (eu-central-1)" as prod_vpc #LightGreen {
         rectangle "Prod env" as prod_env
@@ -58,9 +50,6 @@ staging workloads,
 dbs, redis, etc.
 end note
 
-note top of dev_env
-development envs
-end note
 
 developer --> vpn : mgmt traffic
 
@@ -69,6 +58,5 @@ cdn --> prod_env: filtered traffic
 
 mgmt_vpc <---> prod_vpc : Peering
 mgmt_vpc <---> stg_vpc : Peering
-mgmt_vpc <---> dev_vpc : Peering
 
 @@enduml
