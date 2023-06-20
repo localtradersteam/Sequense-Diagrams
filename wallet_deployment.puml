@@ -19,8 +19,9 @@ package "AWS VPC" {
         component "k8s istio gateway" as istio
         component "API Gateway" as apigw
         component "Wallet" as wallet #LightBlue
-        component "WalletWebApp" as walletwebapp #LightBlue
+        component "WalletWeb" as walletwebapp #LightBlue
         component "Ledger" as ledger #LightBlue
+        component "Account" as account #LightBlue
     }
 }
 
@@ -29,7 +30,8 @@ istio -down-> apigw: "Host: apigateway.<ns>\nPath: /wallet"
 apigw -down->wallet: "Host wallet.<ns>\nPath: /api"
 
 walletwebapp -left-> istio: "Host: wallet-web-app.<ns>\nPath: /static/wallet"
-wallet -> ledger: "Host: ledger.<ns>\nPath: /int-api"
+wallet -left-> ledger: "Host: ledger.<ns>\nPath: /int-api"
+wallet -> account: "Host: account.<ns>\nPath: /int-api"
 wallet -left-> f
 
 ' small hack to hame boxies vertical order

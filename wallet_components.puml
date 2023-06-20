@@ -16,7 +16,8 @@ component "Account" as account #LightBlue
 component "Marketplace" as marketplace #LightBlue
 component "Swaps" as swaps #LightBlue
 component "Wallet" as wallet #LightBlue
-component "Ledger" as ledger 
+component "Ledger" as ledger #LightBlue
+component "Account" as account #LightBlue
 database "Wallet DB" as wallet_db #LightCyan
 database "Wallet Redis" as wallet_cache #LightCyan
 database "Ledger DB" as ledger_db #LightCyan
@@ -60,6 +61,7 @@ swaps -up-> ledger: manage user balances
 
 wallet =down=> wallet_db
 wallet =down=> wallet_cache
+wallet =down=> account
 
 ledger =down=> ledger_db
 
