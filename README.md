@@ -1,8 +1,8 @@
 # Sequence Diagrams
 1. [Deposit Sequence Diagram](deposit_sequence/deposit_sequence.puml)
 ![Deposit Sequence Diagram](deposit_sequence/deposit_sequence.png)
-2. [Sendout Sequence Diagram](sendout_sequence.puml)
-![Sendout Sequence Diagram]()
+2. [Sendout Sequence Diagram](sendout_sequence/sendout_sequence.puml)
+![Sendout Sequence Diagram](sendout_sequence/sendout_sequence.png)
 
 # Component Diagrams
 1. [Wallet Components](wallet_components/wallet_components.puml)
