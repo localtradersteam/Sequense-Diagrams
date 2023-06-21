@@ -1,4 +1,4 @@
-@@startuml
+@startuml
 
 title AWS Networking
 
@@ -59,4 +59,4 @@ cdn --> prod_env: filtered traffic
 mgmt_vpc <---> prod_vpc : Peering
 mgmt_vpc <---> stg_vpc : Peering
 
-@@enduml
+@enduml

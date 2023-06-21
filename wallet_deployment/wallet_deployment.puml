@@ -1,4 +1,4 @@
-@@startuml
+@startuml
 
 
 :User: as u
@@ -37,4 +37,4 @@ wallet -left-> f
 ' small hack to hame boxies vertical order
 wallet_db .. wallet_cache #white
 
-@@enduml
+@enduml

@@ -1,4 +1,4 @@
-@@startuml
+@startuml
 
 title AWS Accounts
 
@@ -37,4 +37,4 @@ org .. prod: org link
 org .. mgmt: org link
 org .. stg: org link
 
-@@enduml
+@enduml

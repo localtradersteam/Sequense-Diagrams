@@ -1,4 +1,4 @@
-@@startuml
+@startuml
 
 
 :User: as u
@@ -75,4 +75,4 @@ backoffice --> wallet_db
 backoffice --> ledger_db
 a ---> backoffice
 
-@@enduml
+@enduml
