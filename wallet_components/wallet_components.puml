@@ -2,10 +2,16 @@
 
 
 :User: as u
+:Admin: as a
 
 rectangle "3rd-Parties" #line.dashed {
     component "FireBlocks" as f #palegreen
     component "OKex" as o #palegreen
+}
+
+rectangle "other products" #line.dashed {
+component "Marketplace" as marketplace #LightBlue
+component "Swaps" as swaps #LightBlue
 }
 
 skinparam rectangle {
@@ -13,14 +19,13 @@ skinparam rectangle {
 }
 
 component "Account" as account #LightBlue
-component "Marketplace" as marketplace #LightBlue
-component "Swaps" as swaps #LightBlue
 component "Wallet" as wallet #LightBlue
 component "Ledger" as ledger #LightBlue
 component "Account" as account #LightBlue
 database "Wallet DB" as wallet_db #LightCyan
 database "Wallet Redis" as wallet_cache #LightCyan
 database "Ledger DB" as ledger_db #LightCyan
+component "BackOffice" as backoffice #LightSalmon
 
 
 note top of wallet
@@ -52,17 +57,22 @@ wallet -left-> ledger
 
 ' small hack to hame boxies vertical order
 f .. o #white
+marketplace .. swaps #white
 
 wallet => f: API/Webhooks
 wallet => o: API/Webhooks
 
-marketplace -up-> ledger: manage user balances
-swaps -up-> ledger: manage user balances
+marketplace --> ledger: manage user balances
+swaps --> ledger: manage user balances
 
 wallet =down=> wallet_db
 wallet =down=> wallet_cache
 wallet =down=> account
 
 ledger =down=> ledger_db
+
+backoffice --> wallet_db
+backoffice --> ledger_db
+a ---> backoffice
 
 @@enduml
