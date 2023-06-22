@@ -1,0 +1,50 @@
+
+@startuml
+
+skinparam state {
+    BackgroundColor LightCyan
+    BackgroundColor<< onchain >> LightBlue
+}
+hide empty description
+
+[*] --> SendoutRequest
+
+state SendoutRequest {
+    state SENDREQ as "SUBMITTED"
+    [*] --> DRAFT : Save sendout request in DB
+    DRAFT: asset_id
+    DRAFT: recipient
+
+    DRAFT -right-> READY : validation passed, \nready for confirmation
+    READY : amount
+    READY : fee
+    READY : recipient
+
+    READY --> SENDREQ : Confirm via 2FA
+    SENDREQ --> [*]
+}
+SendoutRequest --> Sendout
+
+state Sendout {
+    state SUBMITTED as "SUBMITTED"
+    [*] --> SUBMITTED : Save Sendout in DB
+    SUBMITTED --> FUNDED : Hold money \non the sendout escrow account
+    SUBMITTED --> FAILED : failed to hold\n money on the escrow.
+    FUNDED --> IN_PROGRESS <<onchain>>: Request FireBlocks sendout
+    FUNDED --> SUCCEEDED : Internal transfer\n successful.\n Release escrow.
+    FUNDED --> FAILED : Internal transfer failed.\n Cancel escrow.
+
+    IN_PROGRESS : txId
+    IN_PROGRESS --> SUCCEEDED : Transaction has\n enough confirmations.\n Release sendout escrow
+    IN_PROGRESS --> FAILED: Transaction failed.\n Require restart.
+
+    FUNDED : prepare_transaction_id
+    SUCCEEDED: commit_transaction_id
+    FAILED : failure reason code
+    FAILED : cancel_transaction_id
+    SUCCEEDED --> [*]
+    FAILED --> [*]
+}
+Sendout --> [*]
+
+@enduml
