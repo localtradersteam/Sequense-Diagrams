@@ -3,6 +3,8 @@
 ![Deposit Sequence Diagram](deposit_sequence/deposit_sequence.png)
 2. [Sendout Sequence Diagram](sendout_sequence/sendout_sequence.puml)
 ![Sendout Sequence Diagram](sendout_sequence/sendout_sequence.png)
+3. [Sendout LifeCycle Diagram](sendout_lifecycle/sendout_lifecycle.puml)
+![Sendout LifeCycle Diagram](sendout_lifecycle/sendout_lifecycle.png)
 
 # Component Diagrams
 1. [Wallet Components](wallet_components/wallet_components.puml)
