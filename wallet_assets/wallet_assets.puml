@@ -1,0 +1,42 @@
+@startuml
+
+actor "User" as user
+
+rectangle "User Wallet" #line.dashed {
+    rectangle "Wallet App" as walletapp
+    database "Wallet DB" as walletdb
+}
+rectangle "Hot Wallet" as hw
+rectangle "Sendout Wallet" as sw
+rectangle "Cold Wallet" as cw
+
+walletapp --> hw: manage user addresses
+walletapp --> walletdb: keep info about\nuser assents and balance
+walletapp -up-> sw: request sendout
+
+hw --> hw: Sweeping
+hw --> sw: TX for\nsendouts
+hw --> cw: TX for\nlong term storing
+
+note top of hw
+HD Wallet
+- Used for depositing funds
+- Address generation
+end note
+
+note top of sw
+Sendout Wallet
+- Used for sendouts only
+- Policy for big amounts
+end note
+
+note top of cw
+Cold Wallet
+- Used to store users funds
+end note
+
+
+user --> hw: TX deposit
+sw --> user: TX sendout
+
+@enduml

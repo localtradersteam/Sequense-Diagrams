@@ -9,6 +9,8 @@
 # Component Diagrams
 1. [Wallet Components](wallet_components/wallet_components.puml)
 ![Wallet Components](wallet_components/wallet_components.png)
+2. [Wallet Assets](wallet_assets/wallet_assets.puml)
+![Wallet Assets](wallet_assets/wallet_assets.png)
 
 # Deployment Diagrams
 1. [AWS Accounts](aws_accounts/aws_accounts.puml)
