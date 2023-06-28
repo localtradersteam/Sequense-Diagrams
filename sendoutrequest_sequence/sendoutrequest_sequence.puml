@@ -1,0 +1,42 @@
+@startuml
+
+title "Sendout Request sequence"
+
+actor "User" as u
+participant "Wallet" as wallet
+participant "Account" as account
+participant "KYC" as kyc
+participant "MFA" as mfa
+
+u -> wallet: enter asset, recipient
+wallet -> wallet: validate recipient,\nexternal address
+alt invalid recipient
+wallet -> u--: display invalid recipient
+end group
+
+wallet -> kyc++: check KYC level
+kyc -> wallet--: confirm KYC level
+alt low KYC level
+wallet -> u--: redirect to KYC verification
+end group
+
+wallet -> wallet: check amount
+alt not enough balance
+wallet -> u--: display not enough balance
+end group
+
+wallet -> account++: request 2FA settings
+account -> account: check 2FA enabled
+account -> wallet--: confirm 2FA enabled
+alt not enabled 2FA
+wallet -> u--: redirect to enable 2FA
+end group
+
+wallet -> mfa++: request 2FA challenge
+mfa -> wallet--: submit code,\nconfirm 2FA
+loop wrong 2FA
+wallet -> u--: retry 2FA code
+end group
+
+wallet -> u: confirm "Pending" state
+@enduml

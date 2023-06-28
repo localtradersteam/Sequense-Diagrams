@@ -1,11 +1,14 @@
 @startuml
 
+title "Assets Management"
+
 actor "User" as user
 
 rectangle "User Wallet" #line.dashed {
     rectangle "Wallet App" as walletapp
     database "Wallet DB" as walletdb
 }
+
 rectangle "Hot Wallet" as hw
 rectangle "Sendout Wallet" as sw
 rectangle "Cold Wallet" as cw
@@ -19,19 +22,19 @@ hw --> sw: TX for\nsendouts
 hw --> cw: TX for\nlong term storing
 
 note top of hw
-HD Wallet
+HD Wallet in FireBlocks
 - Used for depositing funds
 - Address generation
 end note
 
 note top of sw
-Sendout Wallet
+Sendout Wallet in FireBlocks
 - Used for sendouts only
 - Policy for big amounts
 end note
 
 note top of cw
-Cold Wallet
+Cold Wallet in FireBlocks
 - Used to store users funds
 end note
 
