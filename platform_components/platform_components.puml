@@ -1,0 +1,31 @@
+@startuml
+
+
+:User: as u
+:Admin: as a
+
+rectangle "LCT Services" as ltcservices #line.dashed {
+    component "Marketplace" as marketplace #LightBlue
+    component "Wallet" as wallet #LightBlue
+    component "Ledger" as ledger #LawnGreen
+    component "Account" as account #LightBlue
+    component "BackOffice" as backoffice #LightSalmon
+}
+
+backoffice --> marketplace: Internal API
+backoffice --> wallet: Internal API
+backoffice --> ledger: Internal API
+backoffice --> account: Internal API
+
+u -up-> wallet: Public API
+u -up-> marketplace: Public API
+u -up-> account: Public API
+
+wallet -> ledger: Internal API
+marketplace --> wallet: Internal API
+
+
+' admin
+a --> backoffice: Public API
+
+@enduml
